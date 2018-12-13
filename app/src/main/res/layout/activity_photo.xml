@@ -29,8 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
-        android:layout_above="@+id/use_result" />
-
+        android:layout_above="@+id/use_result"/>
     <LinearLayout
         android:id="@+id/use_result"
         android:layout_alignParentBottom="true"
