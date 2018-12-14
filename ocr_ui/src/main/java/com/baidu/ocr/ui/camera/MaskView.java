@@ -111,16 +111,16 @@ public class MaskView extends View {
         invalidate();
     }
 
+    public int getMaskType() {
+        return maskType;
+    }
+
     public void setLineColor(int lineColor) {
         this.lineColor = lineColor;
     }
 
     public void setMaskColor(int maskColor) {
         this.maskColor = maskColor;
-    }
-
-    public int getMaskType() {
-        return maskType;
     }
 
     public MaskView(Context context, AttributeSet attrs) {

@@ -4,12 +4,12 @@
         "source": "/Users/eventide/.android/build-cache/ec531764e1f0eaaeeb7bc4aa587445bd5b1cfbac/output/res/layout/abc_activity_chooser_view_list_item.xml"
     },
     {
-        "merged": "/Users/eventide/OneDrive/文档/Git/fishaccounting/ocr_ui/build/intermediates/res/merged/release/layout/abc_screen_toolbar.xml",
-        "source": "/Users/eventide/.android/build-cache/ec531764e1f0eaaeeb7bc4aa587445bd5b1cfbac/output/res/layout/abc_screen_toolbar.xml"
-    },
-    {
         "merged": "/Users/eventide/OneDrive/文档/Git/fishaccounting/ocr_ui/build/intermediates/res/merged/release/layout/abc_search_dropdown_item_icons_2line.xml",
         "source": "/Users/eventide/.android/build-cache/ec531764e1f0eaaeeb7bc4aa587445bd5b1cfbac/output/res/layout/abc_search_dropdown_item_icons_2line.xml"
+    },
+    {
+        "merged": "/Users/eventide/OneDrive/文档/Git/fishaccounting/ocr_ui/build/intermediates/res/merged/release/layout/abc_screen_toolbar.xml",
+        "source": "/Users/eventide/.android/build-cache/ec531764e1f0eaaeeb7bc4aa587445bd5b1cfbac/output/res/layout/abc_screen_toolbar.xml"
     },
     {
         "merged": "/Users/eventide/OneDrive/文档/Git/fishaccounting/ocr_ui/build/intermediates/res/merged/release/layout/abc_action_bar_up_container.xml",

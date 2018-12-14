@@ -20,20 +20,11 @@ public class FishSortDao extends AbstractDao<FishSort, Long> {
 
     public static final String TABLENAME = "FISH_SORT";
 
-    public FishSortDao(DaoConfig config) {
-        super(config);
-    }
-
-
-    public FishSortDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
-    }
-
     /**
      * Creates the underlying database table.
      */
     public static void createTable(Database db, boolean ifNotExists) {
-        String constraint = ifNotExists ? "IF NOT EXISTS " : "";
+        String constraint = ifNotExists ? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"FISH_SORT\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"SORT_NAME\" TEXT," + // 1: sortName
@@ -42,9 +33,16 @@ public class FishSortDao extends AbstractDao<FishSort, Long> {
                 "\"INCOME\" INTEGER);"); // 4: income
     }
 
-    /**
-     * Drops the underlying database table.
-     */
+
+    public FishSortDao(DaoConfig config) {
+        super(config);
+    }
+
+    public FishSortDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
+    }
+
+    /** Drops the underlying database table. */
     public static void dropTable(Database db, boolean ifExists) {
         String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"FISH_SORT\"";
         db.execSQL(sql);
@@ -72,7 +70,7 @@ public class FishSortDao extends AbstractDao<FishSort, Long> {
 
         Boolean income = entity.getIncome();
         if (income != null) {
-            stmt.bindLong(5, income ? 1L : 0L);
+            stmt.bindLong(5, income ? 1L: 0L);
         }
     }
 
@@ -98,7 +96,7 @@ public class FishSortDao extends AbstractDao<FishSort, Long> {
 
         Boolean income = entity.getIncome();
         if (income != null) {
-            stmt.bindLong(5, income ? 1L : 0L);
+            stmt.bindLong(5, income ? 1L: 0L);
         }
     }
 
@@ -126,14 +124,8 @@ public class FishSortDao extends AbstractDao<FishSort, Long> {
         entity.setSortImg(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setCost(cursor.getFloat(offset + 3));
         entity.setIncome(cursor.isNull(offset + 4) ? null : cursor.getShort(offset + 4) != 0);
-    }
-
-    @Override
-    protected final Long updateKeyAfterInsert(FishSort entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
-    }
-
+     }
+     
     @Override
     public Long getKey(FishSort entity) {
         if (entity != null) {
@@ -144,13 +136,9 @@ public class FishSortDao extends AbstractDao<FishSort, Long> {
     }
 
     @Override
-    public boolean hasKey(FishSort entity) {
-        return entity.getId() != null;
-    }
-
-    @Override
-    protected final boolean isEntityUpdateable() {
-        return true;
+    protected final Long updateKeyAfterInsert(FishSort entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
 
     /**
@@ -165,4 +153,14 @@ public class FishSortDao extends AbstractDao<FishSort, Long> {
         public final static Property Income = new Property(4, Boolean.class, "income", false, "INCOME");
     }
 
+    @Override
+    public boolean hasKey(FishSort entity) {
+        return entity.getId() != null;
+    }
+
+    @Override
+    protected final boolean isEntityUpdateable() {
+        return true;
+    }
+    
 }

@@ -20,20 +20,11 @@ public class FishBillDao extends AbstractDao<FishBill, Long> {
 
     public static final String TABLENAME = "FISH_BILL";
 
-    public FishBillDao(DaoConfig config) {
-        super(config);
-    }
-
-
-    public FishBillDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
-    }
-
     /**
      * Creates the underlying database table.
      */
     public static void createTable(Database db, boolean ifNotExists) {
-        String constraint = ifNotExists ? "IF NOT EXISTS " : "";
+        String constraint = ifNotExists ? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"FISH_BILL\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"RID\" TEXT," + // 1: rid
@@ -49,9 +40,16 @@ public class FishBillDao extends AbstractDao<FishBill, Long> {
                 "\"VERSION\" INTEGER NOT NULL );"); // 11: version
     }
 
-    /**
-     * Drops the underlying database table.
-     */
+
+    public FishBillDao(DaoConfig config) {
+        super(config);
+    }
+
+    public FishBillDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
+    }
+
+    /** Drops the underlying database table. */
     public static void dropTable(Database db, boolean ifExists) {
         String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"FISH_BILL\"";
         db.execSQL(sql);
@@ -102,7 +100,7 @@ public class FishBillDao extends AbstractDao<FishBill, Long> {
             stmt.bindString(9, sortImg);
         }
         stmt.bindLong(10, entity.getCrdate());
-        stmt.bindLong(11, entity.getIncome() ? 1L : 0L);
+        stmt.bindLong(11, entity.getIncome() ? 1L: 0L);
         stmt.bindLong(12, entity.getVersion());
     }
 
@@ -151,7 +149,7 @@ public class FishBillDao extends AbstractDao<FishBill, Long> {
             stmt.bindString(9, sortImg);
         }
         stmt.bindLong(10, entity.getCrdate());
-        stmt.bindLong(11, entity.getIncome() ? 1L : 0L);
+        stmt.bindLong(11, entity.getIncome() ? 1L: 0L);
         stmt.bindLong(12, entity.getVersion());
     }
 
@@ -193,14 +191,8 @@ public class FishBillDao extends AbstractDao<FishBill, Long> {
         entity.setCrdate(cursor.getLong(offset + 9));
         entity.setIncome(cursor.getShort(offset + 10) != 0);
         entity.setVersion(cursor.getInt(offset + 11));
-    }
-
-    @Override
-    protected final Long updateKeyAfterInsert(FishBill entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
-    }
-
+     }
+     
     @Override
     public Long getKey(FishBill entity) {
         if (entity != null) {
@@ -211,13 +203,9 @@ public class FishBillDao extends AbstractDao<FishBill, Long> {
     }
 
     @Override
-    public boolean hasKey(FishBill entity) {
-        return entity.getId() != null;
-    }
-
-    @Override
-    protected final boolean isEntityUpdateable() {
-        return true;
+    protected final Long updateKeyAfterInsert(FishBill entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
 
     /**
@@ -239,4 +227,14 @@ public class FishBillDao extends AbstractDao<FishBill, Long> {
         public final static Property Version = new Property(11, int.class, "version", false, "VERSION");
     }
 
+    @Override
+    public boolean hasKey(FishBill entity) {
+        return entity.getId() != null;
+    }
+
+    @Override
+    protected final boolean isEntityUpdateable() {
+        return true;
+    }
+    
 }

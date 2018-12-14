@@ -20,20 +20,11 @@ public class FishPayDao extends AbstractDao<FishPay, Long> {
 
     public static final String TABLENAME = "FISH_PAY";
 
-    public FishPayDao(DaoConfig config) {
-        super(config);
-    }
-
-
-    public FishPayDao(DaoConfig config, DaoSession daoSession) {
-        super(config, daoSession);
-    }
-
     /**
      * Creates the underlying database table.
      */
     public static void createTable(Database db, boolean ifNotExists) {
-        String constraint = ifNotExists ? "IF NOT EXISTS " : "";
+        String constraint = ifNotExists ? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"FISH_PAY\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY ," + // 0: id
                 "\"PAY_NAME\" TEXT," + // 1: payName
@@ -42,9 +33,16 @@ public class FishPayDao extends AbstractDao<FishPay, Long> {
                 "\"OUTCOME\" REAL NOT NULL );"); // 4: outcome
     }
 
-    /**
-     * Drops the underlying database table.
-     */
+
+    public FishPayDao(DaoConfig config) {
+        super(config);
+    }
+
+    public FishPayDao(DaoConfig config, DaoSession daoSession) {
+        super(config, daoSession);
+    }
+
+    /** Drops the underlying database table. */
     public static void dropTable(Database db, boolean ifExists) {
         String sql = "DROP TABLE " + (ifExists ? "IF EXISTS " : "") + "\"FISH_PAY\"";
         db.execSQL(sql);
@@ -118,14 +116,8 @@ public class FishPayDao extends AbstractDao<FishPay, Long> {
         entity.setPayImg(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setIncome(cursor.getFloat(offset + 3));
         entity.setOutcome(cursor.getFloat(offset + 4));
-    }
-
-    @Override
-    protected final Long updateKeyAfterInsert(FishPay entity, long rowId) {
-        entity.setId(rowId);
-        return rowId;
-    }
-
+     }
+     
     @Override
     public Long getKey(FishPay entity) {
         if (entity != null) {
@@ -136,13 +128,9 @@ public class FishPayDao extends AbstractDao<FishPay, Long> {
     }
 
     @Override
-    public boolean hasKey(FishPay entity) {
-        return entity.getId() != null;
-    }
-
-    @Override
-    protected final boolean isEntityUpdateable() {
-        return true;
+    protected final Long updateKeyAfterInsert(FishPay entity, long rowId) {
+        entity.setId(rowId);
+        return rowId;
     }
 
     /**
@@ -157,4 +145,14 @@ public class FishPayDao extends AbstractDao<FishPay, Long> {
         public final static Property Outcome = new Property(4, float.class, "outcome", false, "OUTCOME");
     }
 
+    @Override
+    public boolean hasKey(FishPay entity) {
+        return entity.getId() != null;
+    }
+
+    @Override
+    protected final boolean isEntityUpdateable() {
+        return true;
+    }
+    
 }
