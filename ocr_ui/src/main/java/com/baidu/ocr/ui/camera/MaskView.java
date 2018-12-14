@@ -111,25 +111,26 @@ public class MaskView extends View {
         invalidate();
     }
 
-    public MaskView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
-    }
-
-    public void setOrientation(@CameraView.Orientation int orientation) {
-    }
-
-    public MaskView(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        init();
-    }
-
     public void setLineColor(int lineColor) {
         this.lineColor = lineColor;
     }
 
     public void setMaskColor(int maskColor) {
         this.maskColor = maskColor;
+    }
+
+    public int getMaskType() {
+        return maskType;
+    }
+
+    public MaskView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        init();
+    }
+
+    public MaskView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        init();
     }
 
     private void init() {
@@ -220,8 +221,7 @@ public class MaskView extends View {
         }
     }
 
-    public int getMaskType() {
-        return maskType;
+    public void setOrientation(@CameraView.Orientation int orientation) {
     }
 
     private Path fillRectRound(float left, float top, float right, float bottom, float rx, float ry, boolean

@@ -51,13 +51,11 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class Camera2Control implements ICameraControl {
-    static {
-        ORIENTATIONS.append(Surface.ROTATION_0, 90);
-        ORIENTATIONS.append(Surface.ROTATION_90, 0);
-        ORIENTATIONS.append(Surface.ROTATION_180, 270);
-        ORIENTATIONS.append(Surface.ROTATION_270, 180);
-    }
-
+    /**
+     * Conversion from screen rotation to JPEG orientation.
+     */
+    private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
+    private static final int MAX_PREVIEW_SIZE = 2048;
     private final ImageReader.OnImageAvailableListener onImageAvailableListener =
             new ImageReader.OnImageAvailableListener() {
                 @Override
@@ -73,12 +71,6 @@ public class Camera2Control implements ICameraControl {
                     }
                 }
             };
-
-    /**
-     * Conversion from screen rotation to JPEG orientation.
-     */
-    private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
-    private static final int MAX_PREVIEW_SIZE = 2048;
     private CameraCaptureSession.CaptureCallback captureCallback =
             new CameraCaptureSession.CaptureCallback() {
                 private void process(CaptureResult result) {
@@ -150,6 +142,13 @@ public class Camera2Control implements ICameraControl {
                 }
 
             };
+
+    static {
+        ORIENTATIONS.append(Surface.ROTATION_0, 90);
+        ORIENTATIONS.append(Surface.ROTATION_90, 0);
+        ORIENTATIONS.append(Surface.ROTATION_180, 270);
+        ORIENTATIONS.append(Surface.ROTATION_270, 180);
+    }
 
     private static final int STATE_PREVIEW = 0;
     private static final int STATE_WAITING_FOR_LOCK = 1;
@@ -261,7 +260,6 @@ public class Camera2Control implements ICameraControl {
             e.printStackTrace();
         }
     }
-
     private final CameraDevice.StateCallback deviceStateCallback = new CameraDevice.StateCallback() {
         @Override
         public void onOpened(@NonNull CameraDevice cameraDevice) {
@@ -290,6 +288,7 @@ public class Camera2Control implements ICameraControl {
             return Long.signum((long) lhs.getWidth() * lhs.getHeight() - (long) rhs.getWidth() * rhs.getHeight());
         }
     };
+
     private final TextureView.SurfaceTextureListener surfaceTextureListener =
             new TextureView.SurfaceTextureListener() {
                 @Override
