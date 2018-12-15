@@ -32,22 +32,18 @@ public class MaskView extends View {
     public static final int MASK_TYPE_BANK_CARD = 11;
     public static final int MASK_TYPE_PASSPORT = 21;
 
-    private Path path = new Path();
+    @IntDef({MASK_TYPE_NONE, MASK_TYPE_ID_CARD_FRONT, MASK_TYPE_ID_CARD_BACK, MASK_TYPE_BANK_CARD,
+            MASK_TYPE_PASSPORT})
+    @interface MaskType {
 
-    {
-        // 硬件加速不支持，图层混合。
-        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
-
-        pen.setColor(Color.WHITE);
-        pen.setStyle(Paint.Style.STROKE);
-        pen.setStrokeWidth(6);
-
-        eraser.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
     }
 
-    public MaskView(Context context) {
-        super(context);
-        init();
+    public void setLineColor(int lineColor) {
+        this.lineColor = lineColor;
+    }
+
+    public void setMaskColor(int maskColor) {
+        this.maskColor = maskColor;
     }
 
     private int lineColor = Color.WHITE;
@@ -115,12 +111,12 @@ public class MaskView extends View {
         return maskType;
     }
 
-    public void setLineColor(int lineColor) {
-        this.lineColor = lineColor;
+    public void setOrientation(@CameraView.Orientation int orientation) {
     }
 
-    public void setMaskColor(int maskColor) {
-        this.maskColor = maskColor;
+    public MaskView(Context context) {
+        super(context);
+        init();
     }
 
     public MaskView(Context context, AttributeSet attrs) {
@@ -221,8 +217,7 @@ public class MaskView extends View {
         }
     }
 
-    public void setOrientation(@CameraView.Orientation int orientation) {
-    }
+    private Path path = new Path();
 
     private Path fillRectRound(float left, float top, float right, float bottom, float rx, float ry, boolean
             conformToOriginalPost) {
@@ -266,10 +261,15 @@ public class MaskView extends View {
         return path;
     }
 
-    @IntDef({MASK_TYPE_NONE, MASK_TYPE_ID_CARD_FRONT, MASK_TYPE_ID_CARD_BACK, MASK_TYPE_BANK_CARD,
-            MASK_TYPE_PASSPORT})
-    @interface MaskType {
+    {
+        // 硬件加速不支持，图层混合。
+        setLayerType(View.LAYER_TYPE_SOFTWARE, null);
 
+        pen.setColor(Color.WHITE);
+        pen.setStyle(Paint.Style.STROKE);
+        pen.setStrokeWidth(6);
+
+        eraser.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
     }
 
     private void capture(File file) {
