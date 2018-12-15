@@ -54,7 +54,7 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(FishPay.class, fishPayDao);
         registerDao(FishBill.class, fishBillDao);
     }
-
+    
     public void clear() {
         fishSortDaoConfig.clearIdentityScope();
         fishPayDaoConfig.clearIdentityScope();

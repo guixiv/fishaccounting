@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class OcrWords {
     private long log_id;
-    private ArrayList<words> words_result = new ArrayList<>();
+    private ArrayList<words> words_result=new ArrayList<>();
     private int words_result_num;
     private int direction;
 

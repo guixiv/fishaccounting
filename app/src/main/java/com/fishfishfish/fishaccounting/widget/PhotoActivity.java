@@ -25,7 +25,7 @@ import com.fishfishfish.fishaccounting.R;
 import com.fishfishfish.fishaccounting.ui.activity.BillAddActivity;
 import com.google.gson.Gson;
 
-public class PhotoActivity extends Activity {
+public class PhotoActivity extends Activity{
 
     private static final int REQUEST_CODE_GENERAL = 105;
     private static final int REQUEST_CODE_GENERAL_BASIC = 106;
@@ -91,16 +91,16 @@ public class PhotoActivity extends Activity {
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < count; i++) {
                     CheckBox checkBox = (CheckBox) mAutoLayout.getChildAt(i);
-                    if (checkBox.isChecked()) {
+                    if (checkBox.isChecked()){
                         builder.append(checkBox.getText());
                     }
                 }
                 String str = builder.toString();
-                if (TextUtils.isEmpty(str)) {
-                    Toast.makeText(getApplicationContext(), "没有选中金额", Toast.LENGTH_SHORT).show();
-                } else {
+                if(TextUtils.isEmpty(str)){
+                    Toast.makeText(getApplicationContext(),"没有选中金额",Toast.LENGTH_SHORT).show();
+                }else{
                     Intent intent = new Intent(PhotoActivity.this, BillAddActivity.class);
-                    intent.putExtra("money", str);
+                    intent.putExtra("money",str);
                     startActivityForResult(intent, 0);
                 }
             }
@@ -447,13 +447,13 @@ public class PhotoActivity extends Activity {
     }
 
     private void showSplit(String json) {
-        Gson gson = new Gson();
-        OcrWords ocrWords = new OcrWords();
-        ocrWords = gson.fromJson(json, OcrWords.class);
+        Gson gson=new Gson();
+        OcrWords ocrWords=new OcrWords();
+        ocrWords=gson.fromJson(json,OcrWords.class);
         for (words word : ocrWords.getWords_result()) {
-            for (int i = 0; i < word.getWords().length(); i++) {
-                String s = "";
-                s += word.getWords().charAt(i);
+            for (int i=0;i<word.getWords().length();i++) {
+                String s="";
+                s+=word.getWords().charAt(i);
                 BangWordView bangWordView = new BangWordView(getApplication(), s);
                 mAutoLayout.addView(bangWordView);
             }
@@ -576,7 +576,7 @@ public class PhotoActivity extends Activity {
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
-                            json = result;
+                            json=result;
                             showSplit(json);
                             infoPopText(result);
                         }
@@ -589,7 +589,7 @@ public class PhotoActivity extends Activity {
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
-                            json = result;
+                            json=result;
                             showSplit(json);
                             //infoPopText(result);
                         }
@@ -778,7 +778,7 @@ public class PhotoActivity extends Activity {
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
-                            json = result;
+                            json=result;
                             showSplit(json);
                             //infoPopText(result);
                         }
