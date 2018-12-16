@@ -1896,13 +1896,13 @@ containing a value of this type.
         public static int actions=0x7f0b0075;
         public static int activity_chooser_view_content=0x7f0b0027;
         public static int add=0x7f0b0013;
-        public static int album_button=0x7f0b0062;
+        public static int album_button=0x7f0b0063;
         public static int alertTitle=0x7f0b003b;
         public static int always=0x7f0b001d;
         public static int beginning=0x7f0b001a;
         public static int bottom=0x7f0b0022;
         public static int buttonPanel=0x7f0b002e;
-        public static int camera_view=0x7f0b0061;
+        public static int camera_view=0x7f0b0062;
         public static int cancel_action=0x7f0b0069;
         public static int cancel_button=0x7f0b005a;
         public static int checkbox=0x7f0b003e;
@@ -1914,7 +1914,7 @@ containing a value of this type.
         public static int crop_container=0x7f0b0057;
         public static int crop_mask_view=0x7f0b0060;
         public static int crop_view=0x7f0b005e;
-        public static int crop_view_container=0x7f0b005c;
+        public static int crop_view_container=0x7f0b005d;
         public static int custom=0x7f0b0038;
         public static int customPanel=0x7f0b0037;
         public static int decor_content_parent=0x7f0b0045;
@@ -1954,7 +1954,7 @@ containing a value of this type.
         public static int radio=0x7f0b0040;
         public static int right_icon=0x7f0b0073;
         public static int right_side=0x7f0b006f;
-        public static int rotate_button=0x7f0b005d;
+        public static int rotate_button=0x7f0b005c;
         public static int screen=0x7f0b0015;
         public static int scrollIndicatorDown=0x7f0b0036;
         public static int scrollIndicatorUp=0x7f0b0032;
@@ -1983,7 +1983,7 @@ containing a value of this type.
         public static int submenuarrow=0x7f0b0041;
         public static int submit_area=0x7f0b0052;
         public static int tabMode=0x7f0b000b;
-        public static int take_photo_button=0x7f0b0063;
+        public static int take_photo_button=0x7f0b0061;
         public static int take_picture_container=0x7f0b0056;
         public static int text=0x7f0b007a;
         public static int text2=0x7f0b0078;

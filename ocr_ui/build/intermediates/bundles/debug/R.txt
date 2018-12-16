@@ -566,13 +566,13 @@ int id action_text 0x7f0b0067
 int id actions 0x7f0b0075
 int id activity_chooser_view_content 0x7f0b0027
 int id add 0x7f0b0013
-int id album_button 0x7f0b0062
+int id album_button 0x7f0b0063
 int id alertTitle 0x7f0b003b
 int id always 0x7f0b001d
 int id beginning 0x7f0b001a
 int id bottom 0x7f0b0022
 int id buttonPanel 0x7f0b002e
-int id camera_view 0x7f0b0061
+int id camera_view 0x7f0b0062
 int id cancel_action 0x7f0b0069
 int id cancel_button 0x7f0b005a
 int id checkbox 0x7f0b003e
@@ -584,7 +584,7 @@ int id contentPanel 0x7f0b0031
 int id crop_container 0x7f0b0057
 int id crop_mask_view 0x7f0b0060
 int id crop_view 0x7f0b005e
-int id crop_view_container 0x7f0b005c
+int id crop_view_container 0x7f0b005d
 int id custom 0x7f0b0038
 int id customPanel 0x7f0b0037
 int id decor_content_parent 0x7f0b0045
@@ -624,7 +624,7 @@ int id progress_horizontal 0x7f0b0006
 int id radio 0x7f0b0040
 int id right_icon 0x7f0b0073
 int id right_side 0x7f0b006f
-int id rotate_button 0x7f0b005d
+int id rotate_button 0x7f0b005c
 int id screen 0x7f0b0015
 int id scrollIndicatorDown 0x7f0b0036
 int id scrollIndicatorUp 0x7f0b0032
@@ -653,7 +653,7 @@ int id status_bar_latest_event_content 0x7f0b006a
 int id submenuarrow 0x7f0b0041
 int id submit_area 0x7f0b0052
 int id tabMode 0x7f0b000b
-int id take_photo_button 0x7f0b0063
+int id take_photo_button 0x7f0b0061
 int id take_picture_container 0x7f0b0056
 int id text 0x7f0b007a
 int id text2 0x7f0b0078
