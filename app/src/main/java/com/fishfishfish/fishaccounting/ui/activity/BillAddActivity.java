@@ -128,8 +128,8 @@ public class BillAddActivity extends BaseActivity implements BillView {
         days = DateUtils.getCurDateStr("yyyy-MM-dd");
         dateTv.setText(days);
 
-        String s = getIntent().getStringExtra("money");
-        if (s != null) {
+        String s=getIntent().getStringExtra("money");
+        if (s!=null) {
             if (!s.equals("")) {
                 for (int i = 0; i < s.length(); i++) {
                     if (s.charAt(i) == '.') {
