@@ -1,46 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    style="@style/result_pop_scroll"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:fadingEdge="vertical"
-    android:scrollbars="vertical">
-
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/activity_main"
+    <ScrollView
+        android:layout_above="@+id/use_result"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:baselineAligned="false"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin">
+        android:padding="0dp"
+        android:layout_height="match_parent">
+
+        <com.fishfishfish.fishaccounting.widget.AutoExpandLinearLayout
+            android:id="@+id/auto_layout"
+            android:paddingLeft="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--<CheckBox-->
+            <!--android:button="@null"-->
+            <!--android:textStyle="normal"-->
+            <!--android:background="@drawable/checkbox_selector"-->
+            <!--android:text="中文"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content" />-->
+        </com.fishfishfish.fishaccounting.widget.AutoExpandLinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        android:layout_above="@+id/use_result" />
+
+    <LinearLayout
+        android:id="@+id/use_result"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <Button
-            android:id="@+id/general_basic_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="OCR 1.0（拍照瞎眼版）"
-            tools:ignore="HardcodedText" />
-
+            android:text="完成"
+            android:id="@+id/btn_copy"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
         <Button
-            android:id="@+id/general_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="OCR 2.0(含位置信息瞎眼版)"
-            tools:ignore="HardcodedText" />
-
+            android:text="取消"
+            android:id="@+id/btn_cancel"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
         <Button
-            android:id="@+id/accurate_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="OCR 3.0(含位置信息高精度瞎眼版)"
-            tools:ignore="HardcodedText" />
-
-
+            android:text="搜索"
+            android:id="@+id/btn_search"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:layout_height="wrap_content" />
     </LinearLayout>
-</ScrollView>
+</RelativeLayout>
