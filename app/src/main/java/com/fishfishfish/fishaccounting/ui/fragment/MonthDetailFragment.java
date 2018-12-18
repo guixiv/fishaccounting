@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.ocr.ui.camera.CameraActivity;
 import com.bigkoo.pickerview.TimePickerView;
 import com.fishfishfish.fishaccounting.R;
 import com.fishfishfish.fishaccounting.common.Constants;
@@ -22,9 +23,12 @@ import com.fishfishfish.fishaccounting.mvp.presenter.MonthDetailPresenter;
 import com.fishfishfish.fishaccounting.mvp.view.MonthDetailView;
 import com.fishfishfish.fishaccounting.ui.activity.BillAddActivity;
 import com.fishfishfish.fishaccounting.ui.activity.BillEditActivity;
+import com.fishfishfish.fishaccounting.ui.activity.MainActivity;
 import com.fishfishfish.fishaccounting.ui.adapter.MonthDetailAdapter;
 import com.fishfishfish.fishaccounting.utils.DateUtils;
 import com.fishfishfish.fishaccounting.utils.SnackbarUtils;
+import com.fishfishfish.fishaccounting.widget.FileUtil;
+import com.fishfishfish.fishaccounting.widget.PhotoActivity;
 import com.fishfishfish.fishaccounting.widget.stickyheader.StickyHeaderGridLayoutManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -221,9 +225,17 @@ public class MonthDetailFragment extends BaseFragment implements MonthDetailView
      *
      * @param view
      */
-    @OnClick({R.id.float_btn, R.id.layout_data, R.id.top_ll_out})
+    @OnClick({R.id.float_btn_photo, R.id.float_btn, R.id.layout_data, R.id.top_ll_out})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.float_btn_photo:
+                if (BmobUser.getCurrentUser() == null)
+                    SnackbarUtils.show(mContext, "请先登录");
+                else {
+                    Intent intent = new Intent(getContext(), PhotoActivity.class);
+                    startActivityForResult(intent, 0);
+                }
+                break;
             case R.id.float_btn:  //添加
                 if (BmobUser.getCurrentUser() == null)
                     SnackbarUtils.show(mContext, "请先登录");
@@ -279,5 +291,4 @@ public class MonthDetailFragment extends BaseFragment implements MonthDetailView
             getBills(Constants.currentUserId, setYear, setMonth);
         }
     }
-
 }

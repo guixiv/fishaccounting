@@ -1,4 +1,4 @@
-package com.fishfishfish.cocobill;
+package com.fishfishfish.fishaccounting;
 
 import org.junit.Test;
 

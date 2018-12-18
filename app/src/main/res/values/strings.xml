@@ -75,4 +75,8 @@
     <string name="load_login">正在登录中&#8230;</string>
     <string name="load_sign">正在注册中&#8230;</string>
 
+    <!--shortcuts-->
+    <string name="static_shortcut_disabled_message">抱歉，该功能暂时不可用</string>
+    <string name="shortcut_addbill">添加账目</string>
+    <string name="shortcut_photo">拍照识图</string>
 </resources>

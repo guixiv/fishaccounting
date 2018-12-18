@@ -1,5 +1,6 @@
 package com.fishfishfish.fishaccounting.ui.activity;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -34,6 +35,8 @@ import com.fishfishfish.fishaccounting.utils.DateUtils;
 import com.fishfishfish.fishaccounting.utils.ProgressUtils;
 import com.fishfishfish.fishaccounting.utils.SharedPUtils;
 import com.fishfishfish.fishaccounting.utils.SnackbarUtils;
+import com.fishfishfish.fishaccounting.widget.FileUtil;
+import com.fishfishfish.fishaccounting.widget.RecognizeService;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -74,6 +77,8 @@ public class BillAddActivity extends BaseActivity implements BillView {
     protected List<FishSort> tempList;
     //备注对话框
     protected AlertDialog alertDialog;
+
+    protected AlertDialog alertDialog1;
     //选择时间
     protected int mYear;
     protected int mMonth;
@@ -123,6 +128,21 @@ public class BillAddActivity extends BaseActivity implements BillView {
         days = DateUtils.getCurDateStr("yyyy-MM-dd");
         dateTv.setText(days);
 
+        String s = getIntent().getStringExtra("money");
+        if (s != null) {
+            if (!s.equals("")) {
+                for (int i = 0; i < s.length(); i++) {
+                    if (s.charAt(i) == '.') {
+                        for (int j = i; j < s.length(); j++) {
+                            dotNum += s.charAt(j);
+                        }
+                        break;
+                    }
+                    num += s.charAt(i);
+                }
+                moneyTv.setText(num + dotNum);
+            }
+        }
     }
 
     @Override
@@ -543,25 +563,6 @@ public class BillAddActivity extends BaseActivity implements BillView {
                 num = "";
             num += money;
             moneyTv.setText(num + dotNum);
-        }
-    }
-
-
-    /**
-     * 监听Activity返回结果
-     *
-     * @param requestCode
-     * @param resultCode
-     * @param intent
-     */
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        if (resultCode == RESULT_OK) {
-            switch (requestCode) {
-                case 0:
-                    initSortView();
-                    break;
-            }
         }
     }
 }

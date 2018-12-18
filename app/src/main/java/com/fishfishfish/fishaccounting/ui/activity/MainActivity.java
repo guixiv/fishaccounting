@@ -25,6 +25,8 @@ import com.fishfishfish.fishaccounting.model.bean.local.NoteBean;
 import com.fishfishfish.fishaccounting.model.bean.remote.MyUser;
 import com.fishfishfish.fishaccounting.model.repository.BmobRepository;
 import com.fishfishfish.fishaccounting.model.repository.LocalRepository;
+import com.fishfishfish.fishaccounting.mvp.presenter.Imp.UserLogPresenterImp;
+import com.fishfishfish.fishaccounting.mvp.presenter.UserLogPresenter;
 import com.fishfishfish.fishaccounting.ui.adapter.MainFragmentPagerAdapter;
 import com.fishfishfish.fishaccounting.ui.fragment.MonthAccountFragment;
 import com.fishfishfish.fishaccounting.ui.fragment.MonthChartFragment;
@@ -85,14 +87,14 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         mainFragmentPagerAdapter = new MainFragmentPagerAdapter(mFragmentManager);
         mainFragmentPagerAdapter.addFragment(new MonthDetailFragment(), "明细");
         mainFragmentPagerAdapter.addFragment(new MonthChartFragment(), "报表");
-        mainFragmentPagerAdapter.addFragment(new MonthAccountFragment(), "卡片");
+        mainFragmentPagerAdapter.addFragment(new MonthAccountFragment(), "汇总");
 
         viewPager.setAdapter(mainFragmentPagerAdapter);
 
         //初始化TabLayout
         tabLayout.addTab(tabLayout.newTab().setText("明细"));
         tabLayout.addTab(tabLayout.newTab().setText("报表"));
-        tabLayout.addTab(tabLayout.newTab().setText("卡片"));
+        tabLayout.addTab(tabLayout.newTab().setText("汇总"));
         tabLayout.setupWithViewPager(viewPager);
 
         //初始化Toolbar
@@ -227,8 +229,9 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else if (id == R.id.nav_total) {
             viewPager.setCurrentItem(2);
         } else if (id == R.id.nav_sync) {   //同步账单
-            if (currentUser == null)
-                SnackbarUtils.show(mContext, "请先登陆");
+            if (currentUser == null) {
+                //SnackbarUtils.show(mContext, "请先登陆");
+            }
             else
                 BmobRepository.getInstance().syncBill(currentUser.getObjectId());
         } else if (id == R.id.nav_setting) {   //设置

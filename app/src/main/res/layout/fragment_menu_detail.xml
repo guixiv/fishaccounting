@@ -25,16 +25,38 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <RelativeLayout
+        android:id="@+id/float_btns"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/float_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="30dp"
-        android:elevation="3dp"
-        android:src="@mipmap/tallybook_note"
-        app:pressedTranslationZ="5dp" />
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/float_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="30dp"
+            android:elevation="3dp"
+            android:src="@mipmap/ic_tb_note_remark"
+            app:pressedTranslationZ="5dp" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/float_btn_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="109dp"
+            android:elevation="3dp"
+            android:src="@drawable/ic_menu_camera"
+            app:pressedTranslationZ="5dp" />
+    </RelativeLayout>
 
 </RelativeLayout>
