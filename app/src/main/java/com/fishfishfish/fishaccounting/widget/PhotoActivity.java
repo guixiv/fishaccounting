@@ -4,13 +4,16 @@
 package com.fishfishfish.fishaccounting.widget;
 
 import android.app.Activity;
+import android.content.ClipboardManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.Toast;
 
 import com.baidu.ocr.sdk.OCR;
@@ -19,6 +22,8 @@ import com.baidu.ocr.sdk.exception.OCRError;
 import com.baidu.ocr.sdk.model.AccessToken;
 import com.baidu.ocr.ui.camera.CameraActivity;
 import com.fishfishfish.fishaccounting.R;
+import com.fishfishfish.fishaccounting.ui.activity.BillAddActivity;
+import com.google.gson.Gson;
 
 public class PhotoActivity extends Activity {
 
@@ -51,76 +56,120 @@ public class PhotoActivity extends Activity {
 
     private Button b;
 
+    String json;
+
+    AutoExpandLinearLayout mAutoLayout;
+    Button mCopyBtn;
+    Button mCancelBtn;
+    public static boolean isShowing = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_photo);
+        mAutoLayout = (AutoExpandLinearLayout) findViewById(R.id.auto_layout);
         alertDialog = new AlertDialog.Builder(this);
 
-        // 通用文字识别
-        b = (Button) findViewById(R.id.general_basic_button);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!checkTokenStatus()) {
-                    return;
-                }
-                Intent intent = new Intent(PhotoActivity.this, CameraActivity.class);
-                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
-                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
-                        CameraActivity.CONTENT_TYPE_GENERAL);
-                startActivityForResult(intent, REQUEST_CODE_GENERAL_BASIC);
-            }
-        });
-/*
-        // 通用文字识别(高精度版)
-        findViewById(R.id.accurate_basic_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!checkTokenStatus()) {
-                    return;
-                }
-                Intent intent = new Intent(PhotoActivity.this, CameraActivity.class);
-                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
-                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
-                        CameraActivity.CONTENT_TYPE_GENERAL);
-                startActivityForResult(intent, REQUEST_CODE_ACCURATE_BASIC);
-            }
-        });*/
+        Intent intent = new Intent(PhotoActivity.this, CameraActivity.class);
+        intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+                FileUtil.getSaveFile(getApplication()).getAbsolutePath());
+        intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+                CameraActivity.CONTENT_TYPE_GENERAL);
+        startActivityForResult(intent, REQUEST_CODE_GENERAL_BASIC);
 
-        // 通用文字识别（含位置信息版）
-        findViewById(R.id.general_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_cancel).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!checkTokenStatus()) {
-                    return;
-                }
-                Intent intent = new Intent(PhotoActivity.this, CameraActivity.class);
-                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
-                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
-                        CameraActivity.CONTENT_TYPE_GENERAL);
-                startActivityForResult(intent, REQUEST_CODE_GENERAL);
+                finish();
             }
         });
 
-        // 通用文字识别（含位置信息高精度版）
-        findViewById(R.id.accurate_button).setOnClickListener(new View.OnClickListener() {
+        findViewById(R.id.btn_copy).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!checkTokenStatus()) {
-                    return;
+                int count = mAutoLayout.getChildCount();
+                StringBuilder builder = new StringBuilder();
+                for (int i = 0; i < count; i++) {
+                    CheckBox checkBox = (CheckBox) mAutoLayout.getChildAt(i);
+                    if (checkBox.isChecked()) {
+                        builder.append(checkBox.getText());
+                    }
                 }
-                Intent intent = new Intent(PhotoActivity.this, CameraActivity.class);
-                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
-                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
-                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
-                        CameraActivity.CONTENT_TYPE_GENERAL);
-                startActivityForResult(intent, REQUEST_CODE_ACCURATE);
+                String str = builder.toString();
+                if (TextUtils.isEmpty(str)) {
+                    Toast.makeText(getApplicationContext(), "没有选中金额", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(PhotoActivity.this, BillAddActivity.class);
+                    intent.putExtra("money", str);
+                    startActivityForResult(intent, 0);
+                }
             }
         });
+
+//        // 通用文字识别
+//        b = (Button) findViewById(R.id.general_basic_button);
+//        b.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!checkTokenStatus()) {
+//                    return;
+//                }
+//                Intent intent = new Intent(PhotoActivity.this, CameraActivity.class);
+//                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+//                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
+//                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+//                        CameraActivity.CONTENT_TYPE_GENERAL);
+//                startActivityForResult(intent, REQUEST_CODE_GENERAL_BASIC);
+//            }
+//        });
+///*
+//        // 通用文字识别(高精度版)
+//        findViewById(R.id.accurate_basic_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!checkTokenStatus()) {
+//                    return;
+//                }
+//                Intent intent = new Intent(PhotoActivity.this, CameraActivity.class);
+//                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+//                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
+//                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+//                        CameraActivity.CONTENT_TYPE_GENERAL);
+//                startActivityForResult(intent, REQUEST_CODE_ACCURATE_BASIC);
+//            }
+//        });*/
+//
+//        // 通用文字识别（含位置信息版）
+//        findViewById(R.id.general_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!checkTokenStatus()) {
+//                    return;
+//                }
+//                Intent intent = new Intent(PhotoActivity.this, CameraActivity.class);
+//                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+//                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
+//                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+//                        CameraActivity.CONTENT_TYPE_GENERAL);
+//                startActivityForResult(intent, REQUEST_CODE_GENERAL);
+//            }
+//        });
+//
+//        // 通用文字识别（含位置信息高精度版）
+//        findViewById(R.id.accurate_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (!checkTokenStatus()) {
+//                    return;
+//                }
+//                Intent intent = new Intent(PhotoActivity.this, CameraActivity.class);
+//                intent.putExtra(CameraActivity.KEY_OUTPUT_FILE_PATH,
+//                        FileUtil.getSaveFile(getApplication()).getAbsolutePath());
+//                intent.putExtra(CameraActivity.KEY_CONTENT_TYPE,
+//                        CameraActivity.CONTENT_TYPE_GENERAL);
+//                startActivityForResult(intent, REQUEST_CODE_ACCURATE);
+//            }
+//        });
 /*
         // 通用文字识别（含生僻字版）
         findViewById(R.id.general_enhance_button).setOnClickListener(new View.OnClickListener() {
@@ -397,6 +446,23 @@ public class PhotoActivity extends Activity {
         //initAccessTokenWithAkSk();
     }
 
+    private void showSplit(String json) {
+        Gson gson = new Gson();
+        OcrWords ocrWords = new OcrWords();
+        ocrWords = gson.fromJson(json, OcrWords.class);
+        for (words word : ocrWords.getWords_result()) {
+            for (int i = 0; i < word.getWords().length(); i++) {
+                String s = "";
+                s += word.getWords().charAt(i);
+                BangWordView bangWordView = new BangWordView(getApplication(), s);
+                mAutoLayout.addView(bangWordView);
+            }
+        }
+    }
+
+
+
+
     private boolean checkTokenStatus() {
         if (!hasGotToken) {
             Toast.makeText(getApplicationContext(), "token还未成功获取", Toast.LENGTH_LONG).show();
@@ -510,6 +576,8 @@ public class PhotoActivity extends Activity {
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
+                            json = result;
+                            showSplit(json);
                             infoPopText(result);
                         }
                     });
@@ -521,7 +589,9 @@ public class PhotoActivity extends Activity {
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
-                            infoPopText(result);
+                            json = result;
+                            showSplit(json);
+                            //infoPopText(result);
                         }
                     });
         }
@@ -708,7 +778,9 @@ public class PhotoActivity extends Activity {
                     new RecognizeService.ServiceListener() {
                         @Override
                         public void onResult(String result) {
-                            infoPopText(result);
+                            json = result;
+                            showSplit(json);
+                            //infoPopText(result);
                         }
                     });
         }
